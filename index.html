@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego: Atrapa el Cuadrado</title>
+    <style>
+        /* Estilos para el juego */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: #ffffff;
+            border: 2px solid #333;
+        }
+        #square {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff5733;
+            cursor: pointer;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="square"></div>
+</div>
+<div id="score">Puntuación: 0</div>
+
+<script>
+    // Variables para el cuadrado y el puntaje
+    const square = document.getElementById('square');
+    const scoreDisplay = document.getElementById('score');
+    let score = 0;
+
+    // Función para mover el cuadrado a una posición aleatoria
+    function moveSquare() {
+        const container = document.getElementById('game-container');
+        const containerWidth = container.clientWidth;
+        const containerHeight = container.clientHeight;
+        const squareSize = square.clientWidth;
+
+        // Posiciones aleatorias dentro de los límites del contenedor
+        const x = Math.floor(Math.random() * (containerWidth - squareSize));
+        const y = Math.floor(Math.random() * (containerHeight - squareSize));
+
+        // Establece la nueva posición
+        square.style.left = `${x}px`;
+        square.style.top = `${y}px`;
+    }
+
+    // Incrementa el puntaje y mueve el cuadrado al hacer clic
+    square.addEventListener('click', () => {
+        score++;
+        scoreDisplay.textContent = `Puntuación: ${score}`;
+        moveSquare();
+    });
+
+    // Mueve el cuadrado cada segundo
+    setInterval(moveSquare, 1000);
+</script>
+
+</body>
+</html>
